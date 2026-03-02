@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
-    <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="/about.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -100,7 +100,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            max-width: 2500px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -724,6 +724,14 @@
         .location-btn:hover {
             background-color: #cc0000;
         }
+
+        /* Responsive styles for footer */
+        @media (max-width: 768px) {
+            .footer-section {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -886,34 +894,6 @@
                 <i class="fas fa-heartbeat"></i>
                 <h3>Functional Training</h3>
                 <p>Dedicated spaces for functional movement patterns with TRX systems, battle ropes, kettlebells, and obstacle-course inspired equipment.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="gym-staff">
-    <div class="container">
-        <h2>Our Dedicated Staff</h2>
-        <p class="section-intro">Meet the professionals who make your fitness journey exceptional every day.</p>
-
-        <div class="staff-grid">
-            <div class="staff-member">
-                <img src="images/Ulindu.jpg" alt="Trainer 1">
-                <h3>Ulindu Vibodha</h3>
-                <p class="role">Senior Personal Trainer</p>
-                <p class="bio">Specializing in strength training and sports performance. Michael has 8 years of experience and holds certifications in exercise science.</p>
-            </div>
-            <div class="staff-member">
-                <img src="images/kenula.jpg" alt="Trainer 2">
-                <h3>Kenula De Silva</h3>
-                <p class="role">Yoga & Pilates Instructor</p>
-                <p class="bio">A certified yoga instructor with expertise in meditation and mindfulness. Samantha brings 10 years of holistic wellness experience.</p>
-            </div>
-            <div class="staff-member">
-                <img src="images/Kaushikesh.png" alt="Trainer 3">
-                <h3>Rajan Perera</h3>
-                <p class="role">Group Fitness Instructor</p>
-                <p class="bio">Energetic instructor leading HIIT, Zumba, and cycling classes. Known for motivating members to push beyond their limits.</p>
             </div>
         </div>
     </div>

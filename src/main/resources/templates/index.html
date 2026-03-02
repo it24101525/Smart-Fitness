@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Fitness Gyms</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -336,10 +336,13 @@
             opacity: 0;
             animation: fadeIn 1.5s ease-in-out forwards;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 30px;
         }
 
         .contact-form {
-            width: 50%;
+            flex: 1;
             padding: 30px;
             text-align: center;
             animation: slideInLeft 1s ease-in-out;
@@ -393,7 +396,7 @@
         }
 
         .app-info {
-            width: 50%;
+            flex: 1;
             padding: 30px;
             text-align: left;
             animation: slideInRight 1s ease-in-out;
@@ -514,7 +517,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            max-width: 2500px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -774,6 +777,40 @@
                 transform: translateY(0);
             }
         }
+
+        /* Responsive styles for latter sections */
+        @media (max-width: 768px) {
+            .benefits {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+
+            .benefit {
+                width: 100%;
+            }
+
+            .get-in-touch {
+                flex-direction: column;
+                padding: 40px 20px;
+            }
+
+            .bmi-container {
+                width: 90% !important;
+            }
+
+            .bmi-container label,
+            .bmi-container input,
+            .bmi-container select,
+            .bmi-container button {
+                width: 100% !important;
+            }
+
+            .footer-section {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+        }
     </style>
 </head>
 <script></script>
@@ -860,7 +897,7 @@
                 you're more likely to be active and get even more benefits from exercise.</p>
         </div>
     </section>
-    <section class="trainers">
+    <section class="trainers" style="margin-top: 40px;">
         <div class="trainers-header">
             <h2>EXPERT TRAINERS</h2>
             <p>Meet our expert trainers, specializing in strength, muscle, and power training. They offer personalized
@@ -917,7 +954,7 @@
             </div>
         </div>
     </section>
-    <section class="bmi-calculator">
+    <section class="bmi-calculator" style="margin-top: 40px;">
         <div class="bmi-container">
             <h2>BMI Calculator</h2>
             <p>Calculate your Body Mass Index (BMI) to check if you have a healthy weight.</p>
@@ -973,7 +1010,7 @@
 
 
 
-    <section class="get-in-touch">
+    <section class="get-in-touch" style="margin-top: 40px;">
         <div class="contact-form">
             <h1>Questions? Contact us below:</h1>
             <form id="contactForm">
