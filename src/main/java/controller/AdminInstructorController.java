@@ -1,8 +1,6 @@
 package com.example.OOP_FitConnect.controller;
 
-import com.example.OOP_FitConnect.model.Announcement;
 import com.example.OOP_FitConnect.model.User;
-import com.example.OOP_FitConnect.service.AnnouncementService;
 import com.example.OOP_FitConnect.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +13,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminAnnouncementController {
-
-    @Autowired
-    private AnnouncementService announcementService;
+public class AdminInstructorController {
 
     @Autowired
     private UserService userService;
@@ -30,34 +25,38 @@ public class AdminAnnouncementController {
         return (u != null && u.isAdmin()) ? u : null;
     }
 
-    @GetMapping("/announcements")
-    public String announcementsPage(HttpServletRequest request, Model model) {
+    @GetMapping("/instructors")
+    public String instructorsPage(HttpServletRequest request, Model model) {
         User admin = requireAdmin(request);
         if (admin == null) return "redirect:/login";
         model.addAttribute("admin", admin);
-        model.addAttribute("announcements", announcementService.getAllAnnouncements());
-        return "admin_announcements";
+        model.addAttribute("instructors", userService.getAllInstructors());
+        return "admin_instructors";
     }
 
-    @PostMapping("/announcements/add")
+    @PostMapping("/api/add-instructor")
     @ResponseBody
-    public Map<String, Object> addAnnouncement(
-            @RequestParam String title,
-            @RequestParam String content,
+    public Map<String, Object> addInstructor(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam(required = false) String branch,
             HttpServletRequest request) {
         Map<String, Object> resp = new HashMap<>();
-        User admin = requireAdmin(request);
-        if (admin == null) {
+        if (requireAdmin(request) == null) {
             resp.put("success", false);
             resp.put("message", "Unauthorized");
             return resp;
         }
         try {
-            Announcement a = new Announcement();
-            a.setTitle(title);
-            a.setContent(content);
-            a.setPostedBy(admin.getName());
-            announcementService.save(a);
+            User instructor = new User();
+            instructor.setName(name);
+            instructor.setEmail(email);
+            instructor.setPassword(password);
+            instructor.setBranch(branch);
+            instructor.setRole("INSTRUCTOR");
+            instructor.setVerificationCode(0);
+            userService.registerUser(instructor);
             resp.put("success", true);
         } catch (Exception e) {
             resp.put("success", false);
@@ -66,25 +65,14 @@ public class AdminAnnouncementController {
         return resp;
     }
 
-    @PostMapping("/announcements/delete/{id}")
+    @PostMapping("/api/update-instructor/{instructorId}")
     @ResponseBody
-    public Map<String, Object> deleteAnnouncement(@PathVariable Long id, HttpServletRequest request) {
-        Map<String, Object> resp = new HashMap<>();
-        if (requireAdmin(request) == null) {
-            resp.put("success", false);
-            resp.put("message", "Unauthorized");
-            return resp;
-        }
-        announcementService.delete(id);
-        resp.put("success", true);
-        return resp;
-    }
-
-    @PostMapping("/announcements/toggle/{id}")
-    @ResponseBody
-    public Map<String, Object> toggleAnnouncement(
-            @PathVariable Long id,
-            @RequestParam boolean active,
+    public Map<String, Object> updateInstructor(
+            @PathVariable int instructorId,
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam(required = false) String password,
+            @RequestParam(required = false) String branch,
             HttpServletRequest request) {
         Map<String, Object> resp = new HashMap<>();
         if (requireAdmin(request) == null) {
@@ -92,7 +80,31 @@ public class AdminAnnouncementController {
             resp.put("message", "Unauthorized");
             return resp;
         }
-        announcementService.toggle(id, active);
+        User instructor = userService.getUserById(instructorId);
+        if (instructor == null || !"INSTRUCTOR".equals(instructor.getRole())) {
+            resp.put("success", false);
+            resp.put("message", "Instructor not found");
+            return resp;
+        }
+        instructor.setName(name);
+        instructor.setEmail(email);
+        if (password != null && !password.isEmpty()) instructor.setPassword(password);
+        if (branch != null) instructor.setBranch(branch);
+        userService.updateUser(instructor);
+        resp.put("success", true);
+        return resp;
+    }
+
+    @PostMapping("/api/delete-instructor/{instructorId}")
+    @ResponseBody
+    public Map<String, Object> deleteInstructor(@PathVariable int instructorId, HttpServletRequest request) {
+        Map<String, Object> resp = new HashMap<>();
+        if (requireAdmin(request) == null) {
+            resp.put("success", false);
+            resp.put("message", "Unauthorized");
+            return resp;
+        }
+        userService.deleteUser(instructorId);
         resp.put("success", true);
         return resp;
     }
