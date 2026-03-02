@@ -8,9 +8,9 @@
 		<!--  lookup parent from repository  -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>OOP_FitConnect</artifactId>
+	<artifactId>Smart_Fitness</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>OOP_FitConnect</name>
+	<name>Smart_Fitness</name>
 	<description>Fitness tracking and management platform</description>
 	<properties>
 		<java.version>17</java.version>
