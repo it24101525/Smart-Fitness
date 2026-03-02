@@ -1,1 +1,1 @@
-# Smart-Fitness
+# OOP-Project
