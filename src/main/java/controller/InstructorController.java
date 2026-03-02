@@ -7,7 +7,6 @@ import com.example.OOP_FitConnect.model.WorkoutDay;
 import com.example.OOP_FitConnect.model.WorkoutExercise;
 import com.example.OOP_FitConnect.model.WorkoutProgram;
 import com.example.OOP_FitConnect.service.GuestService;
-import com.example.OOP_FitConnect.service.InstructorDietPlanService;
 import com.example.OOP_FitConnect.service.InstructorWorkoutService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -22,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/instructor")
@@ -37,9 +35,9 @@ public class InstructorController {
     @Autowired
     private InstructorWorkoutService workoutService;
 
-    // ── Auth guard helper ──────────────────────────────────────────
 
-    /** Returns the logged-in instructor, or null if not authenticated as instructor. */
+
+
     private User getInstructor(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("userId") == null) return null;
@@ -286,3 +284,4 @@ public class InstructorController {
         return list.size() <= max ? list : list.subList(0, max);
     }
 }
+
