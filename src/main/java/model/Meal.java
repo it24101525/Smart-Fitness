@@ -4,7 +4,7 @@ public class Meal {
 
     private Long id;
     private Long dietPlanId;
-    private String mealType;  // Breakfast, Lunch, Dinner, Morning Snack, etc.
+    private String mealType;
     private String foodItems;
     private Integer calories;
 

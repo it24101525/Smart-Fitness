@@ -61,8 +61,6 @@ public class InstructorDietPlanRepository {
         return m;
     };
 
-    // ── Diet Plan CRUD ─────────────────────────────────────────────
-
     public DietPlan save(DietPlan plan) {
         KeyHolder kh = new GeneratedKeyHolder();
         jdbcTemplate.update(conn -> {
