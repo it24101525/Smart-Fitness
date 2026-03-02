@@ -1,1 +1,1 @@
-smart fitness
+Smart Fitness
