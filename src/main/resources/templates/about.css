@@ -855,9 +855,4 @@ footer a:hover {
   .contact-container {
     grid-template-columns: 1fr;
   }
-
-  .footer-section {
-    width: 100%;
-    margin-bottom: 30px;
-  }
 }
