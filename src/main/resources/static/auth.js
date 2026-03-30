@@ -14,8 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
             })
-                .then(response => response.json())
-                .then(data => {
+                .then(async response => {
+                    const data = await response.json();
+
+                    if (!response.ok && response.status === 401) {
+                        showAlert('Incorrect username or password.', 'error');
+                        return;
+                    }
+
                     if (data.success) {
                         // Display warning if user is not verified
                         if (data.warning) {
@@ -28,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             window.location.href = data.redirect;
                         }
                     } else {
-                        showAlert(data.message, 'error');
+                        showAlert(data.message || 'Incorrect username or password.', 'error');
                     }
                 })
                 .catch(error => {
@@ -118,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (type === 'success') {
                 alertElement.classList.add('alert-success');
             } else if (type === 'error') {
-                alertElement.classList.add('alert-danger');
+                alertElement.classList.add('alert-error');
             } else if (type === 'warning') {
                 alertElement.classList.add('alert-warning');
             }
