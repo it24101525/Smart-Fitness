@@ -31,7 +31,7 @@ public class DietPlan {
         this.status = "ACTIVE";
     }
 
-    // ── Getters & Setters ──────────────────────────────────────────
+    // â”€â”€ Getters & Setters â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public Long getId()                        { return id; }
     public void setId(Long id)                 { this.id = id; }
@@ -84,3 +84,4 @@ public class DietPlan {
     public List<RecommendedSupplement> getRecommendedSupplements() { return recommendedSupplements; }
     public void setRecommendedSupplements(List<RecommendedSupplement> recommendedSupplements) { this.recommendedSupplements = recommendedSupplements; }
 }
+

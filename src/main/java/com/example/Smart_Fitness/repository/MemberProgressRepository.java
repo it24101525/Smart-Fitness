@@ -60,3 +60,4 @@ public class MemberProgressRepository {
         return jdbcTemplate.query(sql, progressMapper, memberId);
     }
 }
+

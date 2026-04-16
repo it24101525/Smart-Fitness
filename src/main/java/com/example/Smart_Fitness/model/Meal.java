@@ -25,3 +25,4 @@ public class Meal {
     public Integer getCalories()           { return calories; }
     public void setCalories(Integer calories) { this.calories = calories; }
 }
+

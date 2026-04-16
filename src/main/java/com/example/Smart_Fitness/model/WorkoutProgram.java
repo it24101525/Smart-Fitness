@@ -29,7 +29,7 @@ public class WorkoutProgram {
         this.status = "ACTIVE";
     }
 
-    // ── Getters & Setters ──────────────────────────────────────────
+    // â”€â”€ Getters & Setters â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public Long getId()                        { return id; }
     public void setId(Long id)                 { this.id = id; }
@@ -76,3 +76,4 @@ public class WorkoutProgram {
     public List<WorkoutDay> getDays()          { return days; }
     public void setDays(List<WorkoutDay> days) { this.days = days; }
 }
+

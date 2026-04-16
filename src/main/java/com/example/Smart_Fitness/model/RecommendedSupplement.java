@@ -39,3 +39,4 @@ public class RecommendedSupplement {
     public String getSupplementImagePath() { return supplementImagePath; }
     public void setSupplementImagePath(String supplementImagePath) { this.supplementImagePath = supplementImagePath; }
 }
+

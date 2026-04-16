@@ -86,3 +86,4 @@ public class EquipmentRepository {
         return equipmentById.get(id);
     }
 }
+

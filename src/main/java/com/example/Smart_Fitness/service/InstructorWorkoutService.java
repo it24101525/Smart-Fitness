@@ -37,3 +37,4 @@ public class InstructorWorkoutService {
         return repo.countByInstructorId(instructorId);
     }
 }
+

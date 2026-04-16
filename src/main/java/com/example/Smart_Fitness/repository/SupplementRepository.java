@@ -85,3 +85,4 @@ public class SupplementRepository {
         jdbcTemplate.update("DELETE FROM supplements WHERE id = ?", id);
     }
 }
+

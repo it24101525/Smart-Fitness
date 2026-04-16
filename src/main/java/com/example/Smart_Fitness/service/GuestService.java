@@ -86,7 +86,7 @@ public class GuestService {
         }
 
         String resolvedRole = (role != null && !role.isBlank()) ? role.toUpperCase() : "USER";
-        if (!resolvedRole.equals("INSTRUCTOR")) {
+        if (!resolvedRole.equals("INSTRUCTOR") && !resolvedRole.equals("DIETITIAN")) {
             resolvedRole = "USER";
         }
 
@@ -101,7 +101,7 @@ public class GuestService {
         return user;
     }
 
-    /** Backward-compatible overload — defaults to USER role. */
+    /** Backward-compatible overload â€” defaults to USER role. */
     public User registerUser(String name, String email, String password, int verificationCode, String branch) {
         return registerUser(name, email, password, verificationCode, branch, "USER");
     }
@@ -165,7 +165,7 @@ public class GuestService {
         }
     }
 
-    private void sendEmail(String to, String subject, String body) {
+    public void sendEmail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject(subject);
@@ -242,3 +242,4 @@ public class GuestService {
         return guestUser;
     }
 }
+

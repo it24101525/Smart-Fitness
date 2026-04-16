@@ -33,3 +33,4 @@ public class WorkoutDay {
     public List<WorkoutExercise> getExercises()           { return exercises; }
     public void setExercises(List<WorkoutExercise> exs)   { this.exercises = exs; }
 }
+

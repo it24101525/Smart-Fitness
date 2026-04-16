@@ -88,3 +88,4 @@ public class MemberTrainingController {
         return "member_progress";
     }
 }
+

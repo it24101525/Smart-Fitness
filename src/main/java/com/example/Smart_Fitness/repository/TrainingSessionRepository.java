@@ -136,3 +136,4 @@ public class TrainingSessionRepository {
         return jdbcTemplate.query(sql, sessionMapper, memberId);
     }
 }
+

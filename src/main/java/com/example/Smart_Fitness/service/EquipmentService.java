@@ -17,3 +17,4 @@ public class EquipmentService {
     public void add(Equipment equipment) { equipmentRepository.add(equipment); }
     public void delete(String id) { equipmentRepository.delete(id); }
 }
+

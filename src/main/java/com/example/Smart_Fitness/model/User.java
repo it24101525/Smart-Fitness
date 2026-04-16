@@ -88,3 +88,4 @@ public class User {
     public String getCurrentPlanName() { return currentPlanName; }
     public void setCurrentPlanName(String currentPlanName) { this.currentPlanName = currentPlanName; }
 }
+

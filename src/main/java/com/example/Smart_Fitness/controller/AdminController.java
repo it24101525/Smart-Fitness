@@ -160,16 +160,6 @@ public class AdminController {
         response.put("message", "Unauthorized access");
         return ResponseEntity.badRequest().body(response);
     }
-    @GetMapping("/admin/profile")
-    public String profilePage(HttpServletRequest request, Model model) {
-        int userId = (Integer) request.getSession().getAttribute("userId");
-        User admin = userService.getUserById(userId);
-        if (admin != null && admin.isAdmin()) {
-            model.addAttribute("admin", admin);
-            return "Admin_Profile";
-        }
-        return "redirect:/login";
-    }
      @GetMapping("/admin/logout")
     public String showLogoutConfirmation() {
         return "Admin_logout";
@@ -180,3 +170,4 @@ public class AdminController {
         return "redirect:/";
     }
 }
+

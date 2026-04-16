@@ -69,7 +69,7 @@ public class InstructorWorkoutRepository {
         return e;
     };
 
-    // ── Workout Program CRUD ───────────────────────────────────────
+    // â”€â”€ Workout Program CRUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public WorkoutProgram save(WorkoutProgram program) {
         KeyHolder kh = new GeneratedKeyHolder();
@@ -142,7 +142,7 @@ public class InstructorWorkoutRepository {
         jdbcTemplate.update("DELETE FROM workout_programs WHERE id = ?", id);
     }
 
-    // ── Queries ────────────────────────────────────────────────────
+    // â”€â”€ Queries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public List<WorkoutProgram> findByInstructorId(int instructorId) {
         String sql = "SELECT wp.*, u.name AS member_name FROM workout_programs wp " +
@@ -192,10 +192,11 @@ public class InstructorWorkoutRepository {
         program.setDays(days);
     }
 
-    // ── Helpers ────────────────────────────────────────────────────
+    // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private void setNullableInt(PreparedStatement ps, int idx, Integer value) throws java.sql.SQLException {
         if (value == null) ps.setNull(idx, java.sql.Types.INTEGER);
         else ps.setInt(idx, value);
     }
 }
+

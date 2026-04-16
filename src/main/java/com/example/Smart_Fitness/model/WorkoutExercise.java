@@ -33,3 +33,4 @@ public class WorkoutExercise {
     public int getExerciseOrder()              { return exerciseOrder; }
     public void setExerciseOrder(int order)    { this.exerciseOrder = order; }
 }
+

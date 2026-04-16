@@ -41,3 +41,4 @@ public class ClassSession {
         this.schedule = schedule;
     }
 }
+

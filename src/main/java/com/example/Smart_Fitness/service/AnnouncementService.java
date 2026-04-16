@@ -37,3 +37,4 @@ public class AnnouncementService {
         dbController.toggleAnnouncement(id, active);
     }
 }
+

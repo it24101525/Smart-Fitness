@@ -38,3 +38,4 @@ public class AdminReportController {
         return "redirect:/login";
     }
 }
+

@@ -54,3 +54,4 @@ public class WorkoutPlan {
         this.completed = completed;
     }
 }
+

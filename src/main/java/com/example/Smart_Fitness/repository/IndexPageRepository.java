@@ -10,3 +10,4 @@ public class IndexPageRepository {
         return new IndexPage("Welcome to Smart Fitness Gym!");
     }
 }
+

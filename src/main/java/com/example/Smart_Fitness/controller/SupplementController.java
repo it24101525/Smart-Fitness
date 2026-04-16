@@ -44,3 +44,4 @@ public class SupplementController {
 
     // You can add more controller methods for handling other requests (e.g., adding supplements)
 }
+

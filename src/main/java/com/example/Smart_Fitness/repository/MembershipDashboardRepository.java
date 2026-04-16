@@ -31,3 +31,4 @@ public class MembershipDashboardRepository {
 
     // You might add methods for updating dashboard information later
 }
+

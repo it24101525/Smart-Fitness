@@ -15,3 +15,4 @@ public class IndexPage {
         this.welcomeMessage = welcomeMessage;
     }
 }
+

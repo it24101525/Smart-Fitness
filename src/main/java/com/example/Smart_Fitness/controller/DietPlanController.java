@@ -39,3 +39,4 @@ public class DietPlanController {
         return "diet_plan";
     }
 }
+

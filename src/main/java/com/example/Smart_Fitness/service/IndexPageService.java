@@ -19,3 +19,4 @@ public class IndexPageService {
         return indexPageRepository.getWelcomeMessage();
     }
 }
+

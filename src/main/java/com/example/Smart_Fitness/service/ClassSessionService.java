@@ -28,3 +28,4 @@ public class ClassSessionService {
         repo.deleteClass(id);
     }
 }
+

@@ -208,7 +208,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         try {
             jdbcTemplate.execute(sql);
         } catch (Exception ignored) {
-            // Column already exists — safe to ignore
+            // Column already exists â€” safe to ignore
         }
     }
 
@@ -252,3 +252,4 @@ public class DatabaseInitializer implements CommandLineRunner {
         System.out.println("Database tables initialized successfully.");
     }
 }
+

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.Smart_Fitness.model.Payment;
+import com.example.Smart_Fitness.repository.DBController;
 import com.example.Smart_Fitness.service.PaymentHistoryService;
 
 @Controller
@@ -17,13 +18,15 @@ import com.example.Smart_Fitness.service.PaymentHistoryService;
 public class PaymentHistoryController {
 
     private final PaymentHistoryService paymentHistoryService;
+    private final DBController dbController;
 
     @Autowired
-    public PaymentHistoryController(PaymentHistoryService paymentHistoryService) {
+    public PaymentHistoryController(PaymentHistoryService paymentHistoryService, DBController dbController) {
         this.paymentHistoryService = paymentHistoryService;
+        this.dbController = dbController;
     }
 
-    // ── Payment History Page ──────────────────────────────────────
+    // â”€â”€ Payment History Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     @GetMapping("/payment-history")
     public String paymentHistoryPage(Model model) {
         List<Payment> allPayments = paymentHistoryService.getAllPayments();
@@ -40,7 +43,7 @@ public class PaymentHistoryController {
         return "Admin_payment_history";
     }
 
-    // ── Admin Verifies / Rejects Payment ─────────────────────────
+    // â”€â”€ Admin Verifies / Rejects Payment â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     @PostMapping("/payments/verify")
     public String verifyPayment(@RequestParam("paymentId") int paymentId,
                                 @RequestParam("action") String action,
@@ -48,15 +51,24 @@ public class PaymentHistoryController {
         String newStatus = "verify".equalsIgnoreCase(action) ? "VERIFIED" : "REJECTED";
         paymentHistoryService.updatePaymentStatus(paymentId, newStatus);
 
-        if ("verify".equalsIgnoreCase(action)) {
-            redirectAttributes.addFlashAttribute("success", "Payment #" + paymentId + " has been verified.");
+        if ("VERIFIED".equals(newStatus)) {
+            // Find payment to fulfill
+            Payment p = paymentHistoryService.getAllPayments().stream()
+                .filter(pay -> pay.getId() == paymentId)
+                .findFirst().orElse(null);
+            
+            if (p != null && p.getPlanId() > 0) {
+                // Activate the user's membership plan since payment is now verified
+                dbController.updateUserPlan(p.getUserId(), p.getPlanId());
+            }
+            redirectAttributes.addFlashAttribute("success", "Payment #" + paymentId + " has been verified and user plan activated if applicable.");
         } else {
             redirectAttributes.addFlashAttribute("error", "Payment #" + paymentId + " has been rejected.");
         }
         return "redirect:/admin/payment-history";
     }
 
-    // ── Payment Report Page ───────────────────────────────────────
+    // â”€â”€ Payment Report Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     @GetMapping("/payment-report")
     public String paymentReportPage(Model model) {
         List<Payment> allPayments = paymentHistoryService.getAllPayments();
@@ -80,7 +92,7 @@ public class PaymentHistoryController {
         return "membership_plan_management_new";
     }
 
-    // ── REST API ──────────────────────────────────────────────────
+    // â”€â”€ REST API â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     @GetMapping("/api/payments")
     @ResponseBody
     public ResponseEntity<List<Payment>> getPayments(
@@ -104,3 +116,4 @@ public class PaymentHistoryController {
         return paymentHistoryService.getTotalRevenue();
     }
 }
+

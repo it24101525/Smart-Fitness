@@ -99,3 +99,4 @@ public class ClassSessionRepository {
         return s == null ? "" : s.replace(",", ""); // simple escaping, improve if needed
     }
 }
+

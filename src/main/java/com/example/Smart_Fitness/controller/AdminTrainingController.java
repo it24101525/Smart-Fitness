@@ -48,3 +48,4 @@ public class AdminTrainingController {
         return "admin_training_sessions";
     }
 }
+

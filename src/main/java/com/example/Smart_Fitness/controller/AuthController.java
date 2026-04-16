@@ -39,7 +39,10 @@ public class AuthController {
     @Autowired
     private InstructorWorkoutService workoutService;
 
-    // ── Guest-accessible pages ─────────────────────────────────────
+    @Autowired
+    private com.example.Smart_Fitness.service.PaymentHistoryService paymentHistoryService;
+
+    // â”€â”€ Guest-accessible pages â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/index")
     public String indexPage() { return "index"; }
@@ -56,7 +59,7 @@ public class AuthController {
     @GetMapping("/About_us")
     public String aboutUsPage() { return "About_us"; }
 
-    // ── Auth pages ─────────────────────────────────────────────────
+    // â”€â”€ Auth pages â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/login")
     public String loginPage() { return "login"; }
@@ -79,7 +82,7 @@ public class AuthController {
         return "redirect:/login?error=invalid_code";
     }
 
-    // ── Member dashboard ───────────────────────────────────────────
+    // â”€â”€ Member dashboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/user/dashboard")
     public String userDashboard(HttpServletRequest request, Model model) {
@@ -100,7 +103,7 @@ public class AuthController {
         return "redirect:/login";
     }
 
-    // ── Admin dashboard ────────────────────────────────────────────
+    // â”€â”€ Admin dashboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/dashboard")
     public String adminDashboard(HttpServletRequest request, Model model) {
@@ -116,7 +119,7 @@ public class AuthController {
         return "redirect:/login";
     }
 
-    // ── Member sub-pages ───────────────────────────────────────────
+    // â”€â”€ Member sub-pages â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/user/profile")
     public String userProfile(HttpServletRequest request, Model model) {
@@ -127,7 +130,22 @@ public class AuthController {
             if (user != null && "USER".equals(user.getRole())) {
                 if (user.getCurrentPlanId() != null) {
                     MembershipPlan plan = planService.getPlanById(user.getCurrentPlanId());
-                    if (plan != null) user.setCurrentPlanName(plan.getName());
+                    if (plan != null) {
+                        user.setCurrentPlanName(plan.getName());
+                        
+                        // Calculate expiry date
+                        com.example.Smart_Fitness.model.Payment lastPayment = paymentHistoryService.getPaymentsByUserId(userId)
+                            .stream()
+                            .filter(p -> user.getCurrentPlanId().equals(p.getPlanId()) && "completed".equals(p.getStatus()))
+                            .findFirst()
+                            .orElse(null);
+                            
+                        if (lastPayment != null) {
+                            java.time.LocalDateTime expiryDate = lastPayment.getPaymentDate().plusMonths(plan.getDurationMonths());
+                            java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("MMM dd, yyyy");
+                            model.addAttribute("planExpiryDate", expiryDate.format(formatter));
+                        }
+                    }
                 }
                 model.addAttribute("user", user);
                 return "profile";
@@ -165,7 +183,7 @@ public class AuthController {
         return "redirect:/login";
     }
 
-    // ── Login ──────────────────────────────────────────────────────
+    // â”€â”€ Login â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PostMapping("/api/login")
     @ResponseBody
@@ -203,7 +221,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
-    // ── Register ───────────────────────────────────────────────────
+    // â”€â”€ Register â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PostMapping("/api/register")
     @ResponseBody
@@ -232,7 +250,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    // ── Forgot / Reset password ────────────────────────────────────
+    // â”€â”€ Forgot / Reset password â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PostMapping("/api/forgot-password")
     @ResponseBody
@@ -269,7 +287,7 @@ public class AuthController {
         return ResponseEntity.badRequest().body(response);
     }
 
-    // ── Logout ─────────────────────────────────────────────────────
+    // â”€â”€ Logout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes) {
@@ -279,3 +297,4 @@ public class AuthController {
         return "redirect:/login";
     }
 }
+

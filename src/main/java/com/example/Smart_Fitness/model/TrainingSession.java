@@ -60,3 +60,4 @@ public class TrainingSession {
     public boolean isBookedByCurrentUser() { return isBookedByCurrentUser; }
     public void setBookedByCurrentUser(boolean isBookedByCurrentUser) { this.isBookedByCurrentUser = isBookedByCurrentUser; }
 }
+

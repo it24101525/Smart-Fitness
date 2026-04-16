@@ -65,3 +65,4 @@ public class TrainingSessionService {
         return repository.findBookedSessionsByMemberId(memberId);
     }
 }
+

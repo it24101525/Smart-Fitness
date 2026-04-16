@@ -45,7 +45,7 @@ public class DBController {
                 String dbRole = rs.getString("role");
                 if (dbRole != null) user.setRole(dbRole);
             } catch (SQLException ignored) {
-                // Column may not exist yet on first startup — safe to skip
+                // Column may not exist yet on first startup â€” safe to skip
             }
             return user;
         }
@@ -315,3 +315,4 @@ public class DBController {
         jdbcTemplate.update("UPDATE announcements SET active = ? WHERE id = ?", active, id);
     }
 }
+

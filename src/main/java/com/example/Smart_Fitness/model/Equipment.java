@@ -28,3 +28,4 @@ public class Equipment {
     public String getLastServiced() { return lastServiced; }
     public void setLastServiced(String lastServiced) { this.lastServiced = lastServiced; }
 }
+

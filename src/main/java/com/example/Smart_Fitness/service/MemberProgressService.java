@@ -25,3 +25,4 @@ public class MemberProgressService {
         return repository.findProgressByMemberId(memberId);
     }
 }
+

@@ -24,3 +24,4 @@ public class IndexPageController {
         return "index"; // Assuming your HTML file is named index.html
     }
 }
+

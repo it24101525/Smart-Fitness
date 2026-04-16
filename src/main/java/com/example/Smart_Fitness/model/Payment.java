@@ -47,3 +47,4 @@ public class Payment {
     public String getPlanName() { return planName; }
     public void setPlanName(String planName) { this.planName = planName; }
 }
+

@@ -40,3 +40,4 @@ public class SessionBooking {
     public LocalDateTime getSessionStartTime() { return sessionStartTime; }
     public void setSessionStartTime(LocalDateTime sessionStartTime) { this.sessionStartTime = sessionStartTime; }
 }
+

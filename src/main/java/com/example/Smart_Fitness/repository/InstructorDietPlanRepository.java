@@ -45,7 +45,7 @@ public class InstructorDietPlanRepository {
         p.setStatus(rs.getString("status"));
         Timestamp ts = rs.getTimestamp("created_at");
         if (ts != null) p.setCreatedAt(ts.toLocalDateTime());
-        // Optional join columns — swallow errors if not present
+        // Optional join columns â€” swallow errors if not present
         try { p.setInstructorName(rs.getString("instructor_name")); } catch (Exception ignored) {}
         try { p.setMemberName(rs.getString("member_name")); } catch (Exception ignored) {}
         return p;
@@ -74,7 +74,7 @@ public class InstructorDietPlanRepository {
         return rsObj;
     };
 
-    // ── Diet Plan CRUD ─────────────────────────────────────────────
+    // â”€â”€ Diet Plan CRUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public DietPlan save(DietPlan plan) {
         if (plan.getId() != null) {
@@ -185,7 +185,7 @@ public class InstructorDietPlanRepository {
         return c != null ? c : 0;
     }
 
-    // ── Meals ──────────────────────────────────────────────────────
+    // â”€â”€ Meals â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private void saveMeals(Long planId, List<Meal> meals) {
         if (meals == null || meals.isEmpty()) return;
@@ -218,10 +218,11 @@ public class InstructorDietPlanRepository {
         return jdbcTemplate.query(sql, supplementMapper, planId);
     }
 
-    // ── Helpers ────────────────────────────────────────────────────
+    // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private void setNullableInt(PreparedStatement ps, int idx, Integer value) throws java.sql.SQLException {
         if (value == null) ps.setNull(idx, java.sql.Types.INTEGER);
         else ps.setInt(idx, value);
     }
 }
+
