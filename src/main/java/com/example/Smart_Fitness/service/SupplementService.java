@@ -1,7 +1,7 @@
-package com.example.OOP_FitConnect.service;
+package com.example.Smart_Fitness.service;
 
-import com.example.OOP_FitConnect.model.Supplement;
-import com.example.OOP_FitConnect.repository.SupplementRepository;
+import com.example.Smart_Fitness.model.Supplement;
+import com.example.Smart_Fitness.repository.SupplementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

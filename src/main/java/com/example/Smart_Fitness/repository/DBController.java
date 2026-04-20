@@ -1,9 +1,9 @@
-package com.example.OOP_FitConnect.repository;
+package com.example.Smart_Fitness.repository;
 
-import com.example.OOP_FitConnect.model.Announcement;
-import com.example.OOP_FitConnect.model.MembershipPlan;
-import com.example.OOP_FitConnect.model.Payment;
-import com.example.OOP_FitConnect.model.User;
+import com.example.Smart_Fitness.model.Announcement;
+import com.example.Smart_Fitness.model.MembershipPlan;
+import com.example.Smart_Fitness.model.Payment;
+import com.example.Smart_Fitness.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

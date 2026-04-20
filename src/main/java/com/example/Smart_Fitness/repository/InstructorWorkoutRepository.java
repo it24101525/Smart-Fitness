@@ -1,8 +1,8 @@
-package com.example.OOP_FitConnect.repository;
+package com.example.Smart_Fitness.repository;
 
-import com.example.OOP_FitConnect.model.WorkoutDay;
-import com.example.OOP_FitConnect.model.WorkoutExercise;
-import com.example.OOP_FitConnect.model.WorkoutProgram;
+import com.example.Smart_Fitness.model.WorkoutDay;
+import com.example.Smart_Fitness.model.WorkoutExercise;
+import com.example.Smart_Fitness.model.WorkoutProgram;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

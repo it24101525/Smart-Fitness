@@ -1,4 +1,4 @@
-package com.example.OOP_FitConnect.controller;
+package com.example.Smart_Fitness.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.OOP_FitConnect.model.MembershipPlan;
-import com.example.OOP_FitConnect.model.Payment;
-import com.example.OOP_FitConnect.model.User;
-import com.example.OOP_FitConnect.repository.DBController;
-import com.example.OOP_FitConnect.service.GuestService;
-import com.example.OOP_FitConnect.service.PaymentHistoryService;
-import com.example.OOP_FitConnect.service.PlanService;
+import com.example.Smart_Fitness.model.MembershipPlan;
+import com.example.Smart_Fitness.model.Payment;
+import com.example.Smart_Fitness.model.User;
+import com.example.Smart_Fitness.repository.DBController;
+import com.example.Smart_Fitness.service.GuestService;
+import com.example.Smart_Fitness.service.PaymentHistoryService;
+import com.example.Smart_Fitness.service.PlanService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

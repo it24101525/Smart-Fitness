@@ -1,7 +1,7 @@
-package com.example.OOP_FitConnect.service;
+package com.example.Smart_Fitness.service;
 
-import com.example.OOP_FitConnect.model.WorkoutProgram;
-import com.example.OOP_FitConnect.repository.InstructorWorkoutRepository;
+import com.example.Smart_Fitness.model.WorkoutProgram;
+import com.example.Smart_Fitness.repository.InstructorWorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
