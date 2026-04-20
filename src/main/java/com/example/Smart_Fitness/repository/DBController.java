@@ -1,9 +1,9 @@
-package com.example.Smart_Fitness.repository;
+package com.example.OOP_FitConnect.repository;
 
-import com.example.Smart_Fitness.model.Announcement;
-import com.example.Smart_Fitness.model.MembershipPlan;
-import com.example.Smart_Fitness.model.Payment;
-import com.example.Smart_Fitness.model.User;
+import com.example.OOP_FitConnect.model.Announcement;
+import com.example.OOP_FitConnect.model.MembershipPlan;
+import com.example.OOP_FitConnect.model.Payment;
+import com.example.OOP_FitConnect.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -45,7 +45,7 @@ public class DBController {
                 String dbRole = rs.getString("role");
                 if (dbRole != null) user.setRole(dbRole);
             } catch (SQLException ignored) {
-                // Column may not exist yet on first startup â€” safe to skip
+                // Column may not exist yet on first startup — safe to skip
             }
             return user;
         }
@@ -255,7 +255,7 @@ public class DBController {
 
     public double getTotalRevenue() {
         Double total = jdbcTemplate.queryForObject(
-                "SELECT COALESCE(SUM(amount), 0) FROM payments WHERE status = 'completed'", Double.class
+                "SELECT COALESCE(SUM(amount), 0) FROM payments WHERE status IN ('VERIFIED', 'completed')", Double.class
         );
         return total != null ? total : 0.0;
     }
@@ -315,4 +315,3 @@ public class DBController {
         jdbcTemplate.update("UPDATE announcements SET active = ? WHERE id = ?", active, id);
     }
 }
-

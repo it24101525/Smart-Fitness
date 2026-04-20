@@ -1,7 +1,7 @@
-package com.example.Smart_Fitness.service;
+package com.example.OOP_FitConnect.service;
 
-import com.example.Smart_Fitness.model.WorkoutProgram;
-import com.example.Smart_Fitness.repository.InstructorWorkoutRepository;
+import com.example.OOP_FitConnect.model.WorkoutProgram;
+import com.example.OOP_FitConnect.repository.InstructorWorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +36,12 @@ public class InstructorWorkoutService {
     public int countByInstructor(int instructorId) {
         return repo.countByInstructorId(instructorId);
     }
-}
 
+    public WorkoutProgram getProgramById(Long id) {
+        return repo.findById(id);
+    }
+
+    public WorkoutProgram updateProgram(WorkoutProgram program) {
+        return repo.update(program);
+    }
+}

@@ -1,8 +1,8 @@
-package com.example.Smart_Fitness.repository;
+package com.example.OOP_FitConnect.repository;
 
-import com.example.Smart_Fitness.model.WorkoutDay;
-import com.example.Smart_Fitness.model.WorkoutExercise;
-import com.example.Smart_Fitness.model.WorkoutProgram;
+import com.example.OOP_FitConnect.model.WorkoutDay;
+import com.example.OOP_FitConnect.model.WorkoutExercise;
+import com.example.OOP_FitConnect.model.WorkoutProgram;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -69,7 +69,7 @@ public class InstructorWorkoutRepository {
         return e;
     };
 
-    // â”€â”€ Workout Program CRUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Workout Program CRUD ───────────────────────────────────────
 
     public WorkoutProgram save(WorkoutProgram program) {
         KeyHolder kh = new GeneratedKeyHolder();
@@ -142,7 +142,7 @@ public class InstructorWorkoutRepository {
         jdbcTemplate.update("DELETE FROM workout_programs WHERE id = ?", id);
     }
 
-    // â”€â”€ Queries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Queries ────────────────────────────────────────────────────
 
     public List<WorkoutProgram> findByInstructorId(int instructorId) {
         String sql = "SELECT wp.*, u.name AS member_name FROM workout_programs wp " +
@@ -179,6 +179,45 @@ public class InstructorWorkoutRepository {
         return c != null ? c : 0;
     }
 
+    public WorkoutProgram findById(Long id) {
+        String sql = "SELECT wp.*, u.name AS member_name FROM workout_programs wp " +
+                     "LEFT JOIN users u ON wp.member_id = u.id " +
+                     "WHERE wp.id = ?";
+        List<WorkoutProgram> programs = jdbcTemplate.query(sql, programMapper, id);
+        if (programs.isEmpty()) return null;
+        WorkoutProgram program = programs.get(0);
+        loadDays(program);
+        return program;
+    }
+
+    public WorkoutProgram update(WorkoutProgram program) {
+        // Update main program table
+        jdbcTemplate.update(
+                "UPDATE workout_programs SET program_name = ?, fitness_goal = ?, difficulty = ?, " +
+                "duration_weeks = ?, sessions_per_week = ?, session_duration_min = ?, description = ?, status = ?, member_id = ? " +
+                "WHERE id = ?",
+                program.getProgramName(), program.getFitnessGoal(), program.getDifficulty(),
+                program.getDurationWeeks(), program.getSessionsPerWeek(), program.getSessionDurationMin(),
+                program.getDescription(), program.getStatus(), program.getMemberId(), program.getId());
+
+        // Delete existing days and exercises
+        List<Long> dayIds = jdbcTemplate.queryForList(
+                "SELECT id FROM workout_days WHERE program_id = ?", Long.class, program.getId());
+        for (Long dayId : dayIds) {
+            jdbcTemplate.update("DELETE FROM workout_exercises WHERE day_id = ?", dayId);
+        }
+        jdbcTemplate.update("DELETE FROM workout_days WHERE program_id = ?", program.getId());
+
+        // Re-save days and exercises
+        if (program.getDays() != null) {
+            int dayOrder = 0;
+            for (WorkoutDay day : program.getDays()) {
+                saveDay(program.getId(), day, dayOrder++);
+            }
+        }
+        return program;
+    }
+
     private void loadDays(WorkoutProgram program) {
         List<WorkoutDay> days = jdbcTemplate.query(
                 "SELECT * FROM workout_days WHERE program_id = ? ORDER BY day_order",
@@ -192,11 +231,10 @@ public class InstructorWorkoutRepository {
         program.setDays(days);
     }
 
-    // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Helpers ────────────────────────────────────────────────────
 
     private void setNullableInt(PreparedStatement ps, int idx, Integer value) throws java.sql.SQLException {
         if (value == null) ps.setNull(idx, java.sql.Types.INTEGER);
         else ps.setInt(idx, value);
     }
 }
-

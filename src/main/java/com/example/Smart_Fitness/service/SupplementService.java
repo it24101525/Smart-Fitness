@@ -1,7 +1,7 @@
-package com.example.Smart_Fitness.service;
+package com.example.OOP_FitConnect.service;
 
-import com.example.Smart_Fitness.model.Supplement;
-import com.example.Smart_Fitness.repository.SupplementRepository;
+import com.example.OOP_FitConnect.model.Supplement;
+import com.example.OOP_FitConnect.repository.SupplementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,6 +44,12 @@ public class SupplementService {
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(imageFile.getInputStream(), filePath);
             supplement.setImagePath("/uploads/supplements/" + fileName);
+        } else if (supplement.getId() != null) {
+            // Keep existing image path if not updating image
+            Supplement existing = supplementRepository.findById(supplement.getId());
+            if (existing != null && existing.getImagePath() != null) {
+                supplement.setImagePath(existing.getImagePath());
+            }
         }
         return supplementRepository.save(supplement);
     }
@@ -52,4 +58,3 @@ public class SupplementService {
         supplementRepository.deleteById(id);
     }
 }
-

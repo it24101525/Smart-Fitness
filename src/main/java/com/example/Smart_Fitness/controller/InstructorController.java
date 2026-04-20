@@ -1,20 +1,20 @@
-package com.example.Smart_Fitness.controller;
+package com.example.OOP_FitConnect.controller;
 
-import com.example.Smart_Fitness.model.DietPlan;
-import com.example.Smart_Fitness.model.Meal;
-import com.example.Smart_Fitness.model.User;
-import com.example.Smart_Fitness.model.WorkoutDay;
-import com.example.Smart_Fitness.model.WorkoutExercise;
-import com.example.Smart_Fitness.model.WorkoutProgram;
-import com.example.Smart_Fitness.model.RecommendedSupplement;
-import com.example.Smart_Fitness.model.TrainingSession;
-import com.example.Smart_Fitness.model.MemberProgress;
-import com.example.Smart_Fitness.service.GuestService;
-import com.example.Smart_Fitness.service.InstructorDietPlanService;
-import com.example.Smart_Fitness.service.InstructorWorkoutService;
-import com.example.Smart_Fitness.service.SupplementService;
-import com.example.Smart_Fitness.service.TrainingSessionService;
-import com.example.Smart_Fitness.service.MemberProgressService;
+import com.example.OOP_FitConnect.model.DietPlan;
+import com.example.OOP_FitConnect.model.Meal;
+import com.example.OOP_FitConnect.model.User;
+import com.example.OOP_FitConnect.model.WorkoutDay;
+import com.example.OOP_FitConnect.model.WorkoutExercise;
+import com.example.OOP_FitConnect.model.WorkoutProgram;
+import com.example.OOP_FitConnect.model.RecommendedSupplement;
+import com.example.OOP_FitConnect.model.TrainingSession;
+import com.example.OOP_FitConnect.model.MemberProgress;
+import com.example.OOP_FitConnect.service.GuestService;
+import com.example.OOP_FitConnect.service.InstructorDietPlanService;
+import com.example.OOP_FitConnect.service.InstructorWorkoutService;
+import com.example.OOP_FitConnect.service.SupplementService;
+import com.example.OOP_FitConnect.service.TrainingSessionService;
+import com.example.OOP_FitConnect.service.MemberProgressService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +53,7 @@ public class InstructorController {
     @Autowired
     private MemberProgressService progressService;
 
-    // â”€â”€ Auth guard helper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Auth guard helper ──────────────────────────────────────────
 
     /** Returns the logged-in instructor, or null if not authenticated as instructor. */
     private User getInstructor(HttpServletRequest request) {
@@ -66,7 +66,7 @@ public class InstructorController {
         return ("INSTRUCTOR".equals(role) || "ADMIN".equals(role)) ? user : null;
     }
 
-    // â”€â”€ Dashboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Dashboard ──────────────────────────────────────────────────
 
     @GetMapping("/dashboard")
     public String dashboard(HttpServletRequest request, Model model) {
@@ -85,7 +85,7 @@ public class InstructorController {
         return "instructor_dashboard";
     }
 
-    // â”€â”€ Create Diet Plan â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Create Diet Plan ───────────────────────────────────────────
 
     @GetMapping("/create-diet-plan")
     public String createDietPlanForm(HttpServletRequest request, Model model) {
@@ -152,7 +152,7 @@ public class InstructorController {
         return "redirect:/instructor/dashboard";
     }
 
-    // â”€â”€ Edit Diet Plan â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Edit Diet Plan ───────────────────────────────────────────
 
     @GetMapping("/edit-diet-plan")
     public String editDietPlanForm(HttpServletRequest request, @RequestParam Long id, Model model) {
@@ -226,7 +226,7 @@ public class InstructorController {
         return "redirect:/instructor/diet-plans";
     }
 
-    // â”€â”€ Create Workout Program â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Create Workout Program ─────────────────────────────────────
 
     @GetMapping("/create-workout")
     public String createWorkoutForm(HttpServletRequest request, Model model) {
@@ -292,7 +292,7 @@ public class InstructorController {
         return "redirect:/instructor/dashboard";
     }
 
-    // â”€â”€ My Diet Plans â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── My Diet Plans ──────────────────────────────────────────────
 
     @GetMapping("/diet-plans")
     public String dietPlans(HttpServletRequest request, Model model) {
@@ -314,7 +314,7 @@ public class InstructorController {
         return "redirect:/instructor/diet-plans";
     }
 
-    // â”€â”€ My Workout Programs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── My Workout Programs ────────────────────────────────────────
 
     @GetMapping("/workouts")
     public String workouts(HttpServletRequest request, Model model) {
@@ -323,6 +323,83 @@ public class InstructorController {
         model.addAttribute("instructor", instructor);
         model.addAttribute("workoutPrograms", workoutService.getProgramsByInstructor(instructor.getId()));
         return "instructor_workouts";
+    }
+
+    @GetMapping("/edit-workout")
+    public String editWorkoutForm(HttpServletRequest request, @RequestParam Long programId, Model model) {
+        User instructor = getInstructor(request);
+        if (instructor == null) return "redirect:/login";
+
+        WorkoutProgram program = workoutService.getProgramById(programId);
+        if (program == null) return "redirect:/instructor/workouts";
+        // Verify instructor owns this program
+        if (program.getInstructorId() != instructor.getId()) {
+            return "redirect:/instructor/workouts";
+        }
+
+        model.addAttribute("instructor", instructor);
+        model.addAttribute("workoutProgram", program);
+        model.addAttribute("members", guestService.getAllMembers());
+        return "instructor_create_workout"; // Reuse the form template
+    }
+
+    @PostMapping("/edit-workout")
+    public String updateWorkout(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        User instructor = getInstructor(request);
+        if (instructor == null) return "redirect:/login";
+
+        Long programId = Long.parseLong(request.getParameter("programId") != null ? request.getParameter("programId") : "0");
+        WorkoutProgram existing = workoutService.getProgramById(programId);
+        if (existing == null || existing.getInstructorId() != instructor.getId()) {
+            return "redirect:/instructor/workouts";
+        }
+
+        existing.setProgramName(param(request, "programName", "Untitled Program"));
+        existing.setFitnessGoal(param(request, "fitnessGoal", null));
+        existing.setDifficulty(param(request, "difficulty", null));
+        existing.setDescription(param(request, "description", null));
+        existing.setStatus(param(request, "status", "ACTIVE"));
+
+        String memberIdStr = param(request, "memberId", null);
+        if (memberIdStr != null && !memberIdStr.isBlank()) {
+            try { existing.setMemberId(Integer.parseInt(memberIdStr)); } catch (NumberFormatException ignored) {}
+        } else {
+            existing.setMemberId(null);
+        }
+
+        existing.setDurationWeeks(parseNullableInt(param(request, "durationWeeks", null)));
+        existing.setSessionsPerWeek(parseNullableInt(param(request, "sessionsPerWeek", null)));
+        existing.setSessionDurationMin(parseNullableInt(param(request, "sessionDurationMin", null)));
+
+        // Parse days[0].dayName, days[0].focus, days[0].exercises[0].name, ...
+        List<WorkoutDay> days = new ArrayList<>();
+        for (int d = 0; ; d++) {
+            String dayName = request.getParameter("days[" + d + "].dayName");
+            if (dayName == null) break;
+
+            WorkoutDay day = new WorkoutDay();
+            day.setDayName(dayName);
+            day.setFocus(request.getParameter("days[" + d + "].focus"));
+
+            List<WorkoutExercise> exercises = new ArrayList<>();
+            for (int e = 0; ; e++) {
+                String exName = request.getParameter("days[" + d + "].exercises[" + e + "].name");
+                if (exName == null) break;
+                WorkoutExercise ex = new WorkoutExercise();
+                ex.setName(exName);
+                ex.setSets(parseNullableInt(request.getParameter("days[" + d + "].exercises[" + e + "].sets")));
+                ex.setReps(request.getParameter("days[" + d + "].exercises[" + e + "].reps"));
+                ex.setRestSeconds(parseNullableInt(request.getParameter("days[" + d + "].exercises[" + e + "].restSeconds")));
+                exercises.add(ex);
+            }
+            day.setExercises(exercises);
+            days.add(day);
+        }
+        existing.setDays(days);
+
+        workoutService.updateProgram(existing);
+        redirectAttributes.addFlashAttribute("success", "Workout program updated successfully!");
+        return "redirect:/instructor/workouts";
     }
 
     @PostMapping("/delete-workout")
@@ -336,7 +413,7 @@ public class InstructorController {
         return "redirect:/instructor/workouts";
     }
 
-    // â”€â”€ Other instructor pages â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Other instructor pages ─────────────────────────────────────
 
     @GetMapping("/members")
     public String members(HttpServletRequest request, Model model) {
@@ -400,7 +477,7 @@ public class InstructorController {
         return "User-Settings";
     }
 
-    // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Helpers ────────────────────────────────────────────────────
 
     private String param(HttpServletRequest req, String name, String defaultValue) {
         String val = req.getParameter(name);
@@ -416,7 +493,7 @@ public class InstructorController {
         return list.size() <= max ? list : list.subList(0, max);
     }
 
-    // â”€â”€ Training Sessions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Training Sessions ──────────────────────────────────────────
 
     @GetMapping("/sessions")
     public String manageSessions(HttpServletRequest request, Model model) {
@@ -451,7 +528,7 @@ public class InstructorController {
         return "redirect:/instructor/sessions";
     }
 
-    // â”€â”€ Member Progress â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Member Progress ────────────────────────────────────────────
 
     @GetMapping("/progress")
     public String trackProgress(HttpServletRequest request, @RequestParam(value = "memberId", required = false) Integer memberId, Model model) {
@@ -481,4 +558,3 @@ public class InstructorController {
         return "redirect:/instructor/progress?memberId=" + progress.getMemberId();
     }
 }
-
